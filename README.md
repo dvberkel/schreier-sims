@@ -9,5 +9,13 @@ numerous questions about finite groups. This includes
 
 This repository provides a [C++][c++] implementation.
 
+Setup
+-----
+
+We are relying on [googletest][] to provide a unit testing
+framework. This repository uses version [1.7.0][gtest-1.7.0].
+
 [schreier-sims]: http://en.wikipedia.org/wiki/Schreier%E2%80%93Sims_algorithm
 [c++]: http://en.wikipedia.org/wiki/C++
+[googletest]: https://code.google.com/p/googletest/
+[gtest-1.7.0]: https://code.google.com/p/googletest/downloads/detail?name=gtest-1.7.0.zip
