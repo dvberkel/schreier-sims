@@ -58,12 +58,12 @@ gtest_main.a : gtest-all.o gtest_main.o
 # gtest_main.a, depending on whether it defines its own main()
 # function.
 
-sample1.o : $(USER_DIR)/main/cpp/sample1.cc $(USER_DIR)/main/cpp/sample1.h $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/main/cpp/sample1.cc
+%.o : $(USER_DIR)/main/cpp/%.cc $(USER_DIR)/main/cpp/%.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/main/cpp/$(@:.o=.cc)
 
-sample1_unittest.o : $(USER_DIR)/test/cpp/sample1_unittest.cc \
-                     $(USER_DIR)/main/cpp/sample1.h $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/test/cpp/sample1_unittest.cc
+%_unittest.o : $(USER_DIR)/test/cpp/%_unittest.cc \
+                     $(USER_DIR)/main/cpp/%.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/test/cpp/$(@:.o=.cc)
 
-sample1_unittest : sample1.o sample1_unittest.o gtest_main.a
+%_unittest : %.o %_unittest.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
