@@ -2,9 +2,9 @@
 #include "gtest/gtest.h"
 #include "../../main/cpp/permutation.hpp"
 
-TEST(PermutationTest, ImageIdentity) {
-  static const unsigned int max_base = 100;
+static const unsigned int max_base = 100;
 
+TEST(PermutationTest, ImageIdentity) {
   Permutation id;
 
   for (unsigned int n = 0; n < max_base; ++n) {
@@ -13,8 +13,6 @@ TEST(PermutationTest, ImageIdentity) {
 }
 
 TEST(PermutationTest, Image10) {
-  static const unsigned int max_base = 100;
-
   std::vector<unsigned int> image;
   image.push_back(1);
   image.push_back(0);
