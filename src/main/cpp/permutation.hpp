@@ -6,7 +6,8 @@ class Permutation {
 public:
   Permutation();
   Permutation(std::vector<unsigned int>);
-  int operator()(unsigned int n);
+  int operator()(unsigned int);
+  Permutation operator*(Permutation);
 private:
   std::vector<unsigned int> image;
 };

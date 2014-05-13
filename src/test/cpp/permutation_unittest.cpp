@@ -23,9 +23,23 @@ TEST(PermutationTest, Image10) {
   EXPECT_EQ(1, p(0));
   EXPECT_EQ(0, p(1));
 
-
   for (unsigned int n = 2; n < max_base; ++n) {
     EXPECT_EQ(n, p(n));
+  }
+}
+
+TEST(PermutationTest, Multiplication) {
+  Permutation p = Permutation(create_image(3, 1, 0, 2));
+  Permutation q = Permutation(create_image(3, 0, 2, 1));
+
+  Permutation product = p * q;
+
+  EXPECT_EQ(1, product(0));
+  EXPECT_EQ(2, product(1));
+  EXPECT_EQ(0, product(2));
+
+  for (unsigned int n = 3; n < max_base; ++n) {
+    EXPECT_EQ(n, product(n));
   }
 }
 
