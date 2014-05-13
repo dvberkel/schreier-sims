@@ -1,10 +1,10 @@
 #include "permutation.hpp"
 
-Permutation::Permutation() : image(std::vector<int>()) {}
-Permutation::Permutation(std::vector<int> image) : image(image) {}
+Permutation::Permutation() : image(std::vector<unsigned int>()) {}
+Permutation::Permutation(std::vector<unsigned int> image) : image(image) {}
 
-int Permutation::operator()(int n) {
-  if (0 <= n && n < image.size()) {
+int Permutation::operator()(unsigned int n) {
+  if (n < image.size()) {
     return image[n];
   }
   return n;
