@@ -2,7 +2,11 @@
 #include "gtest/gtest.h"
 
 TEST(PermutationTest, Identity) {
+  static const int max_base = 100;
+
   Permutation id;
 
-  EXPECT_EQ(1, id(1));
+  for (int n; n < max_base; ++n) {
+    EXPECT_EQ(n, id(n));
+  }
 }
