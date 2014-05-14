@@ -58,10 +58,14 @@ void cycleOf(const Permutation& p, const unsigned int start, std::vector<unsigne
   }
 }
 
+bool contains(const std::vector<unsigned int> haystack, unsigned int needle) {
+  return std::find(haystack.begin(), haystack.end(), needle) == haystack.end();
+}
+
 void cyclesOf(const Permutation& p, std::vector<std::vector<unsigned int> >& cycles) {
   std::vector<unsigned int> visited;
   for (unsigned int point = 0; point < p.base(); ++point) {
-    if (std::find(visited.begin(), visited.end(), point) == visited.end()) {
+    if (contains(visited, point)) {
       std::vector<unsigned int> cycle;
       cycleOf(p, point, visited, cycle);
       if (cycle.size() != 1) {
