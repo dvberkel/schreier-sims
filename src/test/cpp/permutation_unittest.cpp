@@ -57,6 +57,13 @@ TEST(PermutationTest, Inverse) {
   }
 }
 
+TEST(PermutationTest, Equality) {
+  const Permutation p = Permutation(create_image(3, 1, 2, 0)).inverse();
+  const Permutation q = Permutation(create_image(3, 2, 0, 1));
+
+  EXPECT_EQ(p, q);
+}
+
 std::vector<unsigned int> create_image(unsigned int points, ...) {
   std::vector<unsigned int> image;
   va_list arguments;
