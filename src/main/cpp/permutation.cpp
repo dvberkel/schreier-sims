@@ -1,19 +1,23 @@
 #include "permutation.hpp"
 
-#include <map>
+#include <algorithm>
 
 Permutation::Permutation() : image(std::vector<unsigned int>()) {}
 Permutation::Permutation(std::vector<unsigned int> image) : image(image) {}
 
+unsigned int Permutation::base() const {
+  return image.size();
+}
+
 unsigned int Permutation::operator()(unsigned int n) const {
-  if (n < image.size()) {
+  if (n < base()) {
     return image[n];
   }
   return n;
 }
 
 Permutation Permutation::operator*(const Permutation& q) const {
-  unsigned int max_base = std::max(this->image.size(), q.image.size());
+  unsigned int max_base = std::max(this->base(), q.base());
   std::vector<unsigned int> image;
   for (unsigned int point = 0; point < max_base; ++point) {
     image.push_back((*this)(q(point)));
@@ -22,15 +26,15 @@ Permutation Permutation::operator*(const Permutation& q) const {
 }
 
 Permutation Permutation::inverse() const {
-  std::vector<unsigned int> image(this->image.size());
-  for (unsigned int point = 0; point < this->image.size(); ++point) {
+  std::vector<unsigned int> image(this->base());
+  for (unsigned int point = 0; point < this->base(); ++point) {
     image[(*this)(point)] = point;
   }
   return Permutation(image);
 }
 
 bool Permutation::operator==(const Permutation& q) const {
-  unsigned int max_base = std::max(this->image.size(), q.image.size());
+  unsigned int max_base = std::max(this->base(), q.base());
   for (unsigned int point = 0; point < max_base; ++point) {
     if ((*this)(point) != q(point)) {
       return false;
@@ -41,4 +45,49 @@ bool Permutation::operator==(const Permutation& q) const {
 
 bool Permutation::operator!=(const Permutation& q) const {
   return !((*this) == q);
+}
+
+void cyclesOf(const Permutation& p, std::vector<std::vector<unsigned int> >& cycles) {
+  std::vector<unsigned int> visited;
+  for (unsigned int point = 0; point < p.base(); ++point) {
+    if (std::find(visited.begin(), visited.end(), point) == visited.end()) {
+      visited.push_back(point);
+
+      unsigned int start = point;
+      std::vector<unsigned int> cycle;
+      cycle.push_back(start);
+      unsigned int next = p(start);
+      while (next != start) {
+	visited.push_back(next);
+	cycle.push_back(next);
+	next = p(next);
+      }
+      if (cycle.size() != 1) {
+	cycles.push_back(cycle);
+      }
+    }
+  }
+}
+
+void outputCycles(std::ostream& os, std::vector<std::vector<unsigned int> >& cycles) {
+  if (cycles.size() > 0) {
+    for (std::vector<std::vector<unsigned int> >::iterator i = cycles.begin(); i != cycles.end(); ++i) {
+      std::vector<unsigned int> cycle = *i;
+      os << "(";
+      for (unsigned int index = 0; index < (cycle.size() - 1); ++index) {
+	os << cycle[index] << " ";
+      }
+      os << cycle[cycle.size() - 1];
+      os << ")";
+    }
+  } else {
+    os << "Id";
+  }
+}
+
+std::ostream& operator<<(std::ostream& os, const Permutation& p) {
+  std::vector<std::vector<unsigned int> > cycles;
+  cyclesOf(p, cycles);
+  outputCycles(os, cycles);
+  return os;
 }

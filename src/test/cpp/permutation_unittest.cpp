@@ -70,6 +70,16 @@ TEST(PermutationTest, Base) {
   }
 }
 
+TEST(PermutationTest, OutputOperator) {
+  std::stringstream ss;
+  ss << Permutation(create_image(6, 0, 2, 3, 1, 5, 4));
+  EXPECT_STREQ("(1 2 3)(4 5)", ss.str().c_str());
+
+  ss.str("");
+  ss << Permutation();
+  EXPECT_STREQ("Id", ss.str().c_str());
+}
+
 std::vector<unsigned int> create_image(unsigned int points, ...) {
   std::vector<unsigned int> image;
   va_list arguments;
