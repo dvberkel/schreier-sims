@@ -12,7 +12,7 @@ unsigned int Permutation::operator()(unsigned int n) const {
   return n;
 }
 
-Permutation Permutation::operator*(Permutation q) {
+Permutation Permutation::operator*(Permutation q) const {
   unsigned int max_base = std::max(this->image.size(), q.image.size());
   std::vector<unsigned int> image;
   for (unsigned int point = 0; point < max_base; ++point) {
@@ -21,7 +21,7 @@ Permutation Permutation::operator*(Permutation q) {
   return Permutation(image);
 }
 
-Permutation Permutation::inverse() {
+Permutation Permutation::inverse() const {
   std::vector<unsigned int> image(this->image.size());
   for (unsigned int point = 0; point < this->image.size(); ++point) {
     image[(*this)(point)] = point;
