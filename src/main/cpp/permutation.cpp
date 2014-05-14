@@ -69,16 +69,23 @@ void cyclesOf(const Permutation& p, std::vector<std::vector<unsigned int> >& cyc
   }
 }
 
+void outputCycle(std::ostream& os, std::vector<unsigned int>& cycle) {
+  os << "(";
+  for (unsigned int index = 0; index < (cycle.size() - 1); ++index) {
+    os << cycle[index] << " ";
+  }
+  os << cycle[cycle.size() - 1];
+  os << ")";
+}
+
 void outputCycles(std::ostream& os, std::vector<std::vector<unsigned int> >& cycles) {
   if (cycles.size() > 0) {
-    for (std::vector<std::vector<unsigned int> >::iterator i = cycles.begin(); i != cycles.end(); ++i) {
-      std::vector<unsigned int> cycle = *i;
-      os << "(";
-      for (unsigned int index = 0; index < (cycle.size() - 1); ++index) {
-	os << cycle[index] << " ";
-      }
-      os << cycle[cycle.size() - 1];
-      os << ")";
+    for (
+	 std::vector<std::vector<unsigned int> >::iterator cycle_ptr = cycles.begin();
+	 cycle_ptr != cycles.end();
+	 ++cycle_ptr
+    ) {
+      outputCycle(os, *cycle_ptr);
     }
   } else {
     os << "Id";
