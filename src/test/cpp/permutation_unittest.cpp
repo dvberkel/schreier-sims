@@ -7,12 +7,10 @@
 
 std::vector<unsigned int> create_image(unsigned int points, ...);
 
-static const unsigned int max_base = 100;
-
 TEST(PermutationTest, ImageIdentity) {
   Permutation id;
 
-  for (unsigned int n = 0; n < max_base; ++n) {
+  for (unsigned int n = 0; n < 5; ++n) {
     EXPECT_EQ(n, id(n));
   }
 }
@@ -22,10 +20,6 @@ TEST(PermutationTest, Image10) {
 
   EXPECT_EQ(1, p(0));
   EXPECT_EQ(0, p(1));
-
-  for (unsigned int n = 2; n < max_base; ++n) {
-    EXPECT_EQ(n, p(n));
-  }
 }
 
 TEST(PermutationTest, Multiplication) {
@@ -37,10 +31,6 @@ TEST(PermutationTest, Multiplication) {
   EXPECT_EQ(1, product(0));
   EXPECT_EQ(2, product(1));
   EXPECT_EQ(0, product(2));
-
-  for (unsigned int n = 3; n < max_base; ++n) {
-    EXPECT_EQ(n, product(n));
-  }
 }
 
 TEST(PermutationTest, Inverse) {
@@ -51,10 +41,6 @@ TEST(PermutationTest, Inverse) {
   EXPECT_EQ(2, inverse(0));
   EXPECT_EQ(0, inverse(1));
   EXPECT_EQ(1, inverse(2));
-
-  for (unsigned int n = 3; n < max_base; ++n) {
-    EXPECT_EQ(n, inverse(n));
-  }
 }
 
 TEST(PermutationTest, Equality) {
@@ -62,6 +48,20 @@ TEST(PermutationTest, Equality) {
   const Permutation q = Permutation(create_image(3, 2, 0, 1));
 
   EXPECT_EQ(p, q);
+}
+
+TEST(PermutationTest, Base) {
+  static const unsigned int max_base = 100;
+
+  Permutation id;
+  for (unsigned int n = 0; n < max_base; ++n) {
+    EXPECT_EQ(n, id(n));
+  }
+
+  Permutation p = Permutation(create_image(5, 1, 2, 3, 4, 0));
+  for (unsigned int n = 5; n < max_base; ++n) {
+    EXPECT_EQ(n, p(n));
+  }
 }
 
 std::vector<unsigned int> create_image(unsigned int points, ...) {
