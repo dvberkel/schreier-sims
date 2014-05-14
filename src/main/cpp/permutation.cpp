@@ -38,3 +38,7 @@ bool Permutation::operator==(const Permutation& q) const {
   }
   return true;
 }
+
+bool Permutation::operator!=(const Permutation& q) const {
+  return !((*this) == q);
+}

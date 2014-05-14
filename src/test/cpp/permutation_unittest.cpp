@@ -50,6 +50,12 @@ TEST(PermutationTest, Equality) {
   EXPECT_EQ(p, q);
 }
 
+TEST(PermutationTest, Inequality) {
+  Permutation p = Permutation(create_image(3, 1, 2, 0)).inverse();
+
+  EXPECT_NE(p, p.inverse());
+}
+
 TEST(PermutationTest, Base) {
   static const unsigned int max_base = 100;
 

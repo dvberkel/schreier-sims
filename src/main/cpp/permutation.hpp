@@ -10,6 +10,7 @@ public:
   Permutation operator*(const Permutation&) const;
   Permutation inverse() const;
   bool operator==(const Permutation&) const;
+  bool operator!=(const Permutation&) const;
 private:
   std::vector<unsigned int> image;
 };
