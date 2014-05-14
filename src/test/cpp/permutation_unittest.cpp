@@ -43,6 +43,20 @@ TEST(PermutationTest, Multiplication) {
   }
 }
 
+TEST(PermutationTest, Inverse) {
+  Permutation p = Permutation(create_image(3, 1, 2, 0));
+
+  Permutation inverse = p.inverse();
+
+  EXPECT_EQ(2, inverse(0));
+  EXPECT_EQ(0, inverse(1));
+  EXPECT_EQ(1, inverse(2));
+
+  for (unsigned int n = 3; n < max_base; ++n) {
+    EXPECT_EQ(n, inverse(n));
+  }
+}
+
 std::vector<unsigned int> create_image(unsigned int points, ...) {
   std::vector<unsigned int> image;
   va_list arguments;
