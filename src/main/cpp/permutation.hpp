@@ -6,7 +6,7 @@ class Permutation {
 public:
   Permutation();
   Permutation(std::vector<unsigned int>);
-  int operator()(unsigned int) const;
+  unsigned int operator()(unsigned int) const;
   Permutation operator*(Permutation);
   Permutation inverse();
   bool operator==(const Permutation) const;
