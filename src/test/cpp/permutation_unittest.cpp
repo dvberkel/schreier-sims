@@ -44,8 +44,8 @@ TEST(PermutationTest, Inverse) {
 }
 
 TEST(PermutationTest, Equality) {
-  const Permutation p = Permutation(create_image(3, 1, 2, 0)).inverse();
-  const Permutation q = Permutation(create_image(3, 2, 0, 1));
+  Permutation p = Permutation(create_image(3, 1, 2, 0)).inverse();
+  Permutation q = Permutation(create_image(3, 2, 0, 1));
 
   EXPECT_EQ(p, q);
 }
