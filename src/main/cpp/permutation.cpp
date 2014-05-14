@@ -47,12 +47,10 @@ bool Permutation::operator!=(const Permutation& q) const {
   return !((*this) == q);
 }
 
-void cycleOf(const Permutation& p, const unsigned int start, std::vector<unsigned int>& visited, std::vector<unsigned int>& cycle) {
-  visited.push_back(start);
+void cycleOf(const Permutation& p, const unsigned int start, std::vector<unsigned int>& cycle) {
   cycle.push_back(start);
   unsigned int next = p(start);
   while (next != start) {
-    visited.push_back(next);
     cycle.push_back(next);
     next = p(next);
   }
@@ -67,10 +65,11 @@ void cyclesOf(const Permutation& p, std::vector<std::vector<unsigned int> >& cyc
   for (unsigned int point = 0; point < p.base(); ++point) {
     if (contains(visited, point)) {
       std::vector<unsigned int> cycle;
-      cycleOf(p, point, visited, cycle);
+      cycleOf(p, point, cycle);
       if (cycle.size() != 1) {
 	cycles.push_back(cycle);
       }
+      visited.insert(visited.end(), cycle.begin(), cycle.end());
     }
   }
 }
